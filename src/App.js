@@ -1,20 +1,36 @@
 import React, { Component } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import {
+  withRouter, Route, Switch, browserHistory, Redirect, BrowserRouter as Router,
+} from "react-router-dom";
+// import logo from './logo.svg'
+// import './App.css'
 
 class App extends Component {
-  render () {
+  render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Contactually Lite</h2>
-        </div>
-        <p className="App-intro">
-          Hey there, <br />
-          We're excited to see what you build!
-        </p>
-      </div>
+      <Router >
+        <Switch>
+          <Route
+            exact path="/"
+            render={({ match }) => {
+              return <div>Home</div>
+            }}
+          />
+          <Route
+            exact path="/contacts"
+            render={({ match }) => {
+              return <div>Contacts</div>
+            }}
+          />
+          <Route
+            exact path="/buckets/:id"
+            render={({ match }) => {
+              return <div>buckets</div>
+            }}
+          />
+          <Redirect to="/" />
+        </Switch>
+      </Router>
     )
   }
 }

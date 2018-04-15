@@ -1,7 +1,7 @@
 export default function reducer(
     state = {
         userInfo: { data: null, error: null },
-        contacts: { data: [], error: null },
+        contacts: { data: null, error: null },
     },
     action
 ) {

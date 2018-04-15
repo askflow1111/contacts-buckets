@@ -5,6 +5,7 @@ import {
 import { connect } from "react-redux";
 // import logo from './logo.svg'
 // import './App.css'
+import Contacts from "./components/Contacts";
 import {
   fetchCurrentUserInfo,
   fetchUserContacts
@@ -33,7 +34,7 @@ class App extends Component {
           <Route
             exact path="/contacts"
             render={({ match }) => {
-              return <div>Contacts</div>
+              return <Contacts />
             }}
           />
           <Route

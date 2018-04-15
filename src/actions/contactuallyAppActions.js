@@ -49,3 +49,46 @@ export function createContact(obj) {
   };
 }
 
+export function deleteContact(id) {
+  return function (dispatch) {
+    apiClient.delete(`contacts/${id}`, {
+      data: {
+        id: id.split('_')[1],
+      },
+      onSuccess: ({ data }) => {
+        // debugger
+        dispatch({ type: "DELETE_CONTACT_FULFILLED", payload: data });
+      },
+      onError: (error) => {
+        dispatch({ type: "DELETE_CONTACT_REJECTED", payload: error });
+      }
+    })
+  };
+}
+
+export function areTwoArrSame(arr1, arr2) {
+  // In this algorithm, it is assumed that ids are going to be unique.
+  return function () {
+    let mapOne = {}, mapTwo = {}, counter = 0;
+    if (arr1 !== arr2) { //In case if both arrays are null
+      if (!arr1 || !arr2 || arr1.length !== arr2.length) return false; // In case if either array is null
+      for (let i = 0; i < arr1.length; i++) {
+        if (arr1[i].id !== arr2[i].id) {
+          if (mapOne[arr2[i].id]) {
+            counter--;
+          } else {
+            mapTwo[arr2[i].id] = true;
+            counter++;
+          }
+          if (mapTwo[arr1[i].id]) {
+            counter--;
+          } else {
+            mapOne[arr1[i].id] = true;
+            counter++;
+          }
+        }
+      }
+    }
+    return counter === 0;
+  }
+}

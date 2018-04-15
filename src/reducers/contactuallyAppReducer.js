@@ -48,6 +48,16 @@ export default function reducer(
 			};
 		}
 
+		case "DELETE_CONTACT_FULFILLED": {
+			return {
+				...state,
+				contacts: {
+					...state.contacts, error: null,
+					data: state.contacts.data.filter(item => item.id !== action.payload.id)
+				},
+			};
+		}
+
 		default:
 			return state;
 	}

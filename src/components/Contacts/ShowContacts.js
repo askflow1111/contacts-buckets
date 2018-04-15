@@ -4,8 +4,7 @@ import {
 } from "react-router-dom";
 import { connect } from "react-redux";
 
-class Contacts extends Component {
-
+class ShowContacts extends Component {
 	renderContacts = () => {
 		if (this.props.contactuallyAppStore.contacts.data !== null) {
 			return this.props.contactuallyAppStore.contacts.data.map((item) => {
@@ -17,6 +16,8 @@ class Contacts extends Component {
 					</li>
 				)
 			})
+
+			// add the case when contacts are  empty
 		} else {
 			return <h1>loading</h1>
 		}
@@ -38,4 +39,4 @@ function mapStateToProps({ contactuallyAppStore }) {
 	return { contactuallyAppStore };
 }
 
-export default withRouter(connect(mapStateToProps)(Contacts));
+export default withRouter(connect(mapStateToProps)(ShowContacts));

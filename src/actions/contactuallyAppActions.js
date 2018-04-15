@@ -1,7 +1,7 @@
 import { ApiClient } from '../lib/contactually-api'
 const apiClient = new ApiClient()
 
-export function fetchCurrentUserInfo(value) {
+export function fetchCurrentUserInfo() {
   return function (dispatch) {
     apiClient.get('me', {
       onSuccess: ({ data }) => {
@@ -14,7 +14,7 @@ export function fetchCurrentUserInfo(value) {
   };
 }
 
-export function fetchUserContacts(value) {
+export function fetchUserContacts() {
   return function (dispatch) {
     apiClient.get('contacts', {
       onSuccess: ({ data }) => {
@@ -26,3 +26,26 @@ export function fetchUserContacts(value) {
     })
   };
 }
+
+export function createContact(obj) {
+  return function (dispatch) {
+    apiClient.post('contacts', {
+      data: {
+        firstName: obj.firstName,
+        lastName: obj.lastName,
+        email: obj.email,
+      },
+      onSuccess: ({ data }) => {
+        if (!data) {
+          dispatch({ type: "CREATE_CONTACT_REJECTED", payload: "Contact Already Exist" });
+        } else {
+          dispatch({ type: "CREATE_CONTACT_FULFILLED", payload: data });
+        }
+      },
+      onError: (error) => {
+        dispatch({ type: "CREATE_CONTACT_REJECTED", payload: error });
+      }
+    })
+  };
+}
+

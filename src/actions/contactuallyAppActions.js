@@ -16,9 +16,9 @@ export function fetchCurrentUserInfo() {
 
 export function fetchUserContacts() {
   return function (dispatch) {
-    apiClient.get('contacts', {
+    apiClient.get('contacts?order=created_at', {
       onSuccess: ({ data }) => {
-        dispatch({ type: "FETCH_USER_CONTACTS_FULFILLED", payload: data });
+        dispatch({ type: "FETCH_USER_CONTACTS_FULFILLED", payload: data.reverse() });
       },
       onError: (error) => {
         dispatch({ type: "FETCH_USER_CONTACTS_REJECTED", payload: error });
@@ -56,11 +56,29 @@ export function deleteContact(id) {
         id: id.split('_')[1],
       },
       onSuccess: ({ data }) => {
-        // debugger
         dispatch({ type: "DELETE_CONTACT_FULFILLED", payload: data });
       },
       onError: (error) => {
         dispatch({ type: "DELETE_CONTACT_REJECTED", payload: error });
+      }
+    })
+  };
+}
+
+export function updateContact(obj) {
+  return function (dispatch) {
+    apiClient.put(`contacts/${obj.id}`, {
+      data: {
+        id: obj.id.split('_')[1],
+        firstName: obj.firstName,
+        lastName: obj.lastName,
+        email: obj.email,
+      },
+      onSuccess: ({ data }) => {
+        dispatch({ type: "UPDATE_CONTACT_FULFILLED", payload: data });
+      },
+      onError: (error) => {
+        dispatch({ type: "UPDATE_CONTACT_REJECTED", payload: error });
       }
     })
   };

@@ -61,7 +61,7 @@ class AddContact extends Component {
 
         }}>
           <div >
-            <h3 className="heading"><span> Search</span></h3>
+            <h3 className="heading"><span> Add</span></h3>
             <input
               type="text"
               // id="thing"
@@ -96,7 +96,7 @@ class AddContact extends Component {
               className="search-box-input"
             />
           </div>
-          <button className="bttn search-form-bttn">Search</button>
+          <button className="bttn search-form-bttn">Add</button>
         </form>
       </div>
     )

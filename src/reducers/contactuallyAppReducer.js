@@ -1,7 +1,7 @@
 export default function reducer(
 	state = {
 		userInfo: { data: null, error: null },
-		contacts: { data: null, error: null, contactsAdded: 0, errorCount: 0 },
+		contacts: { data: null, error: null, contactsAdded: 0, errorCount: 0, contactsEdited: 0 },
 	},
 	action
 ) {
@@ -57,6 +57,36 @@ export default function reducer(
 				},
 			};
 		}
+
+		case "UPDATE_CONTACT_FULFILLED": {
+			// let arr = [...state.contacts.data.filter(item => item.id !== action.payload.id), action.payload];
+			// arr = arr.sort((a,b) => a.createdAt>b.createdAt);
+			let arr = [...state.contacts.data]; // created new arr
+			for (let i = 0; i < arr.length; i++) {
+				if (arr[i].id === action.payload.id) {
+					arr[i] = action.payload;
+					break;
+				}
+			}
+			return {
+				...state,
+				contacts: {
+					...state.contacts, error: null,
+					data: arr,
+					contactsEdited: state.contacts.contactsEdited + 1,
+				},
+			};
+		}
+
+		case "UPDATE_CONTACT_REJECTED": {
+			return {
+				...state,
+				contacts: {
+					...state.contacts, error: action.payload
+				},
+			};
+		}
+
 
 		default:
 			return state;

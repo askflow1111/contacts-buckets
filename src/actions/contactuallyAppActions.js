@@ -13,3 +13,16 @@ export function fetchCurrentUserInfo(value) {
     })
   };
 }
+
+export function fetchUserContacts(value) {
+  return function (dispatch) {
+    apiClient.get('contacts', {
+      onSuccess: ({ data }) => {
+        dispatch({ type: "FETCH_USER_CONTACTS_FULFILLED", payload: data });
+      },
+      onError: (error) => {
+        dispatch({ type: "FETCH_USER_CONTACTS_REJECTED", payload: error });
+      }
+    })
+  };
+}

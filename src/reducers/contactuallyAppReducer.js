@@ -1,7 +1,7 @@
 export default function reducer(
     state = {
-        userInfo: null,
-        userInfoError: null,
+        userInfo: { data: null, error: null },
+        contacts: { data: [], error: null },
     },
     action
 ) {
@@ -9,14 +9,28 @@ export default function reducer(
         case "FETCH_CURRENT_USER_INFO_FULFILLED": {
             return {
                 ...state,
-                userInfo: action.payload,
+                userInfo: { data: action.payload, error: null },
             };
         }
 
         case "FETCH_CURRENT_USER_INFO_REJECTED": {
             return {
                 ...state,
-                userInfoError: action.payload,
+                userInfo: { error: action.payload, data: null },
+            };
+        }
+
+        case "FETCH_USER_CONTACTS_FULFILLED": {
+            return {
+                ...state,
+                contacts: { data: action.payload, error: null },
+            };
+        }
+
+        case "FETCH_USER_CONTACTS_REJECTED": {
+            return {
+                ...state,
+                contacts: { error: action.payload, data: null },
             };
         }
 

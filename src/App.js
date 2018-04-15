@@ -6,7 +6,8 @@ import { connect } from "react-redux";
 // import logo from './logo.svg'
 // import './App.css'
 import {
-  fetchCurrentUserInfo
+  fetchCurrentUserInfo,
+  fetchUserContacts
 } from "./actions/contactuallyAppActions";
 
 // import logo from './logo.svg'
@@ -15,7 +16,9 @@ import {
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(fetchCurrentUserInfo());
+    this.props.dispatch(fetchUserContacts());
   }
+
   render() {
     console.log('this.props', this.props);
     return (

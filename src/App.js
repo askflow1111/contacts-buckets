@@ -5,8 +5,17 @@ import {
 import { connect } from "react-redux";
 // import logo from './logo.svg'
 // import './App.css'
+import {
+  fetchCurrentUserInfo
+} from "./actions/contactuallyAppActions";
+
+// import logo from './logo.svg'
+// import './App.css'
 
 class App extends Component {
+  componentDidMount() {
+    this.props.dispatch(fetchCurrentUserInfo());
+  }
   render() {
     console.log('this.props', this.props);
     return (

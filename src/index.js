@@ -1,6 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
+import { BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./store";
 import registerServiceWorker from './registerServiceWorker'
 import './index.css'
 
@@ -9,7 +12,15 @@ const apiClient = new ApiClient()
 
 if (apiClient.isAuthenticated()) {
   // the API has been authenticated for use, we can render the react app
-  ReactDOM.render(<App />, document.getElementById('root'))
+  const root = document.getElementById("root");
+  ReactDOM.render(
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>,
+    root
+  );
 } else {
   // the API has not been authenticated for use, we will authenticate
   const url = window.location.pathname + window.location.hash

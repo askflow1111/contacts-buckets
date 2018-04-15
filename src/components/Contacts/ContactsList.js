@@ -36,7 +36,7 @@ class ContactsList extends Component {
 	render() {
 		return (
 			<div>
-				<ul>
+				<ul className="contact-lists-container">
 					{this.renderContactsList()}
 				</ul>
 			</div>

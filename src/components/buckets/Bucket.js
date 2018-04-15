@@ -102,11 +102,11 @@ class Bucket extends Component {
 				<p >Name:{this.props.item.name}</p>
 				<p >contact:{this.props.item.extraData.contactCount}  </p>
 				<p >days: {this.props.item.reminderInterval} </p>
-				
+
 
 				<button onClick={() => this.setState({ isBeingEdited: true })}>Edit</button>
 
-		
+
 
 				{/* <button onClick={() => this.props.dispatch(deleteContact(this.props.item.id))}>Delete</button> */}
 			</li>

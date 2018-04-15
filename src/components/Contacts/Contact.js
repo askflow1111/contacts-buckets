@@ -5,8 +5,10 @@ import {
 import { connect } from "react-redux";
 import {
 	deleteContact,
-	updateContact
-} from "../../actions/contactuallyAppActions";
+	updateContact,
+	addContactToBucket
+} from "../../actions/contactsActions";
+import Select from 'react-select';
 
 class Contact extends Component {
 	constructor(props) {
@@ -16,6 +18,8 @@ class Contact extends Component {
 			firstName: this.props.item.firstName,
 			lastName: this.props.item.lastName,
 			email: this.props.item.email,
+			selectArr: null,
+
 		};
 	}
 
@@ -82,24 +86,63 @@ class Contact extends Component {
 					/>
 				</div>
 				<button className="bttn search-form-bttn">Search</button>
+			
 			</form>
 		)
 	}
 
+	handleSelectChange = (selectArr) => {
+		// debugger
+		this.setState({ selectArr });
+	}
+
+	handleSelectOnClose = () => {
+		if (this.state.selectArr) {
+			let bucketsArr = this.state.selectArr.split(',');
+			// console.log(' this.state.selectArr',  bucketsArr);
+			this.props.dispatch(addContactToBucket({contactId: this.props.item.id, bucketsArr}));
+		}
+	}
+
+	selectOptions = () => {
+		let arr = [];
+		if (this.props.contactuallyAppStore.buckets.data !== null) {
+			this.props.contactuallyAppStore.buckets.data.forEach(e => {		
+				arr.push({"label": e.name, "value": e.id})
+			});
+		}
+		return arr;
+	}
+
 	renderContact = () => {
 		return (
-			<li >
+			
+			<li className="section ">
+				<p >{this.props.item.id}</p>
 				<p >{this.props.item.firstName}</p>
 				<p >{this.props.item.lastName} </p>
 				<p >{this.props.item.email} </p>
 				<button onClick={() => this.setState({ isBeingEdited: true })}>Edit</button>
 				<button onClick={() => this.props.dispatch(deleteContact(this.props.item.id))}>Delete</button>
+				<Select
+				className="select-bucket"
+					closeOnSelect={false}
+					// disabled={disabled}
+					multi
+					onClose={this.handleSelectOnClose}
+					onChange={this.handleSelectChange}
+					options={this.selectOptions()}
+					placeholder="Select your favourite(s)"
+					removeSelected={false}
+					// rtl={this.state.rtl}
+					simpleValue
+					value={this.state.selectArr}
+				/>
 			</li>
 		)
 	}
 
 	render() {
-		console.log('this.state hhaaaa=>>>>>>>>>>>>>', this.state);
 
 		if (!this.state.isBeingEdited) {
 			return this.renderContact();

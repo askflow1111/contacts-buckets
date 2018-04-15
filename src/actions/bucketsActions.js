@@ -13,16 +13,6 @@ export function fetchBuckets() {
         dispatch({ type: "FETCH_BUCKETS_REJECTED", payload: error });
       }
     })
-    let arr = ["bucket_1702385", "bucket_1702384", "bucket_1702382"];
-    arr.forEach(id => {
-      apiClient.post(`contacts/contact_7259164/buckets`, {
-        data: {
-          id,
-        },
-      })
-    });
-
-
   };
 }
 

@@ -37,7 +37,7 @@ export default function reducer(
 		case "CREATE_CONTACT_FULFILLED": {
 			return {
 				...state,
-				contacts: { ...state.contacts, data: [...state.contacts.data, action.payload], contactsAdded: state.contacts.contactsAdded + 1, error: null },
+				contacts: { ...state.contacts, data: [action.payload, ...state.contacts.data], contactsAdded: state.contacts.contactsAdded + 1, error: null },
 			};
 		}
 

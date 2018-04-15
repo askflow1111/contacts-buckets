@@ -5,12 +5,13 @@ import {
 import { connect } from "react-redux";
 // import logo from './logo.svg'
 // import './App.css'
-import ContactsList from "./components/Contacts/ContactsList";
-import AddContact from "./components/Contacts/AddContact";
-import {
-  fetchCurrentUserInfo,
-  fetchUserContacts
-} from "./actions/contactuallyAppActions";
+import ContactsList from "./components/contacts/ContactsList";
+import AddContact from "./components/contacts/AddContact";
+import BucketsList from "./components/buckets/BucketsList";
+import BucketDetails from "./components/buckets/BucketDetails";
+import { fetchUserContacts } from "./actions/contactsActions";
+import { fetchCurrentUserInfo } from "./actions/currentUserActions";
+import { fetchBuckets, fetchBucketInfo } from "./actions/bucketsActions";
 
 // import logo from './logo.svg'
 // import './App.css'
@@ -19,6 +20,7 @@ class App extends Component {
   componentDidMount() {
     this.props.dispatch(fetchCurrentUserInfo());
     this.props.dispatch(fetchUserContacts());
+    this.props.dispatch(fetchBuckets());
   }
 
   render() {
@@ -37,11 +39,16 @@ class App extends Component {
           <Route exact path="/contacts/add" component={AddContact} />
 
           <Route
-            exact path="/buckets/:id"
+            path="/buckets/:id"
             render={({ match }) => {
-              return <div>buckets</div>
+              // debugger
+              this.props.dispatch(fetchBucketInfo(match.params.id));
+              return <BucketDetails />
             }}
           />
+
+          <Route path="/buckets" component={BucketsList} />
+
           <Redirect to="/" />
         </Switch>
       </Router>

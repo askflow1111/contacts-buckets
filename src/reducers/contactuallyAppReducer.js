@@ -2,6 +2,7 @@ export default function reducer(
 	state = {
 		userInfo: { data: null, error: null },
 		contacts: { data: null, error: null, contactsAdded: 0, errorCount: 0, contactsEdited: 0 },
+		buckets: { data: null },
 	},
 	action
 ) {
@@ -83,6 +84,24 @@ export default function reducer(
 				...state,
 				contacts: {
 					...state.contacts, error: action.payload
+				},
+			};
+		}
+
+		case "FETCH_BUCKETS_FULFILLED": {
+			return {
+				...state,
+				buckets: {
+					...state.buckets, data: action.payload,
+				},
+			};
+		}
+
+		case "FETCH_BUCKETS_REJECTED": {
+			return {
+				...state,
+				buckets: {
+					...state.buckets, error: action.payload,
 				},
 			};
 		}

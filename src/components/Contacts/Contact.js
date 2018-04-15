@@ -20,7 +20,7 @@ class Contact extends Component {
 	}
 
 	shouldComponentUpdate(newProps, newState) {
-		if (this.props.isBeingEdited !== newProps.isBeingEdited ||
+		if (this.state.isBeingEdited !== newProps.isBeingEdited ||
 			this.props.firstName !== newProps.firstName ||
 			this.props.lastName !== newProps.lastName ||
 			this.props.email !== newProps.email) {

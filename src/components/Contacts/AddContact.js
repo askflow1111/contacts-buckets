@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 
 import {
   createContact
-} from "../../actions/contactuallyAppActions";
+} from "../../actions/contactsActions";
 
 
 class AddContact extends Component {
@@ -44,7 +44,6 @@ class AddContact extends Component {
 
 
   render() {
-    console.log('this.props', this.props);
     return (
       <div>
         <h3 ref="authFailed" className={"auth-failed " + (this.state.registrationFailed ? "show" : "")}>Username already exists</h3>

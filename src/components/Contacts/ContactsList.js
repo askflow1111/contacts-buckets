@@ -7,7 +7,7 @@ import Contact from "./Contact";
 
 import {
 	areTwoArrSame
-} from "../../actions/contactuallyAppActions";
+} from "../../actions/contactsActions";
 
 
 class ContactsList extends Component {
@@ -34,7 +34,6 @@ class ContactsList extends Component {
 	}
 
 	render() {
-		console.log('this.props', this.props);
 		return (
 			<div>
 				<ul>

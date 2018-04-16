@@ -95,6 +95,7 @@ class Bucket extends Component {
 	renderBucket = () => {
 		return (
 			<li
+				key={this.props.item.id}
 			//  onClick={this.handleBucketForm}
 			>
 				<p >id:{this.props.item.id}</p>

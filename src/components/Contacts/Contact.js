@@ -145,7 +145,7 @@ class Contact extends Component {
 	renderContact = () => {
 		return (
 
-			<li className="section ">
+			<li className="section " key={this.props.item.id}>
 				<p >{this.props.item.id}</p>
 				<p >{this.props.item.firstName}</p>
 				<p >{this.props.item.lastName} </p>

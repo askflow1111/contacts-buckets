@@ -5,16 +5,17 @@ import {
 import { connect } from "react-redux";
 // import logo from './logo.svg'
 // import './App.css'
+import Home from "./components/Home";
 import ContactsList from "./components/contacts/ContactsList";
 import AddContact from "./components/contacts/AddContact";
 import BucketsList from "./components/buckets/BucketsList";
 import BucketDetails from "./components/buckets/BucketDetails";
-import { fetchUserContacts } from "./actions/contactsActions";
-import { fetchCurrentUserInfo } from "./actions/currentUserActions";
-import { fetchBuckets, fetchBucketInfo } from "./actions/bucketsActions";
-
-// import logo from './logo.svg'
-// import './App.css'
+import {
+  fetchUserContacts,
+  fetchCurrentUserInfo,
+  fetchBuckets,
+  fetchBucketInfo
+} from "./actions/contactuallyAppActions";
 
 class App extends Component {
   componentDidMount() {
@@ -31,24 +32,19 @@ class App extends Component {
           <Route
             exact path="/"
             render={({ match }) => {
-              return <div>Home</div>
+              return <Home />
             }}
           />
           <Route exact path="/contacts/show" component={ContactsList} />
-
           <Route exact path="/contacts/add" component={AddContact} />
-
           <Route
             path="/buckets/:id"
             render={({ match }) => {
-              // debugger
               this.props.dispatch(fetchBucketInfo(match.params.id));
               return <BucketDetails />
             }}
           />
-
           <Route path="/buckets" component={BucketsList} />
-
           <Redirect to="/" />
         </Switch>
       </Router>

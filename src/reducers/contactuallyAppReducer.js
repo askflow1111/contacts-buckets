@@ -3,6 +3,7 @@ export default function reducer(
 		userInfo: { data: null, error: null },
 		contacts: { data: null, error: null, contactsAdded: 0, errorCount: 0, contactsEdited: 0 },
 		buckets: { data: null },
+		updateBucketContactsCounter: 0,
 	},
 	action
 ) {
@@ -25,6 +26,7 @@ export default function reducer(
 			return {
 				...state,
 				contacts: { ...state.contacts, data: action.payload, error: null, },
+				updateBucketContactsCounter: state.updateBucketContactsCounter + 1,
 			};
 		}
 
@@ -93,6 +95,7 @@ export default function reducer(
 				...state,
 				buckets: {
 					...state.buckets, data: action.payload,
+					updateBucketContactsCounter: state.updateBucketContactsCounter + 1,
 				},
 			};
 		}
@@ -103,6 +106,13 @@ export default function reducer(
 				buckets: {
 					...state.buckets, error: action.payload,
 				},
+			};
+		}
+
+		case "UPDATE_BUCKET_CONTACTS": {
+			return {
+				...state,
+				updateBucketContactsCounter: state.updateBucketContactsCounter + 1,
 			};
 		}
 

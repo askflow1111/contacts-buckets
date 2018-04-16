@@ -8,7 +8,7 @@ import {
 	updateContact,
 	addContactToBuckets,
 	deleteContactFromBuckets
-} from "../../actions/contactsActions";
+} from "../../actions/contactuallyAppActions";
 import Select from 'react-select';
 
 class Contact extends Component {
@@ -108,26 +108,26 @@ class Contact extends Component {
 
 	handleSelectChange = (selectArr) => {
 		this.setState({ selectArr });
-			let newBucketArr = selectArr.split(',');
-			let oldBucketArr = this.props.item.extraData.buckets;
-			let newBucketMap = {}, itemsToDelete = [], itemsToAdd = [];
-			newBucketArr.forEach(e => newBucketMap[e] = true);
-			oldBucketArr.forEach(e => {
-				if (newBucketMap[e.id] !== undefined) {
-					delete newBucketMap[e.id]
-				} else {
-					itemsToDelete.push(e.id)
-				}
-			})
-			for (let key in newBucketMap) {
-				itemsToAdd.push(key);
+		let newBucketArr = selectArr.split(',');
+		let oldBucketArr = this.props.item.extraData.buckets;
+		let newBucketMap = {}, itemsToDelete = [], itemsToAdd = [];
+		newBucketArr.forEach(e => newBucketMap[e] = true);
+		oldBucketArr.forEach(e => {
+			if (newBucketMap[e.id] !== undefined) {
+				delete newBucketMap[e.id]
+			} else {
+				itemsToDelete.push(e.id)
 			}
-			if (itemsToAdd.length > 0) {
-				this.props.dispatch(addContactToBuckets({ contactId: this.props.item.id, bucketsArr: itemsToAdd }));
-			}
-			if (itemsToDelete.length > 0) {
-				this.props.dispatch(deleteContactFromBuckets({ contactId: this.props.item.id, bucketsArr: itemsToDelete }));
-			}
+		})
+		for (let key in newBucketMap) {
+			itemsToAdd.push(key);
+		}
+		if (itemsToAdd.length > 0) {
+			this.props.dispatch(addContactToBuckets({ contactId: this.props.item.id, bucketsArr: itemsToAdd }));
+		}
+		if (itemsToDelete.length > 0) {
+			this.props.dispatch(deleteContactFromBuckets({ contactId: this.props.item.id, bucketsArr: itemsToDelete }));
+		}
 	}
 
 

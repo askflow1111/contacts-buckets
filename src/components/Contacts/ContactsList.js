@@ -7,7 +7,7 @@ import Contact from "./Contact";
 
 import {
 	areTwoArrSame
-} from "../../actions/contactsActions";
+} from "../../actions/contactuallyAppActions";
 
 
 class ContactsList extends Component {

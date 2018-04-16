@@ -1,5 +1,18 @@
 import { ApiClient } from '../lib/contactually-api'
-const apiClient = new ApiClient()
+const apiClient = new ApiClient();
+
+export function fetchCurrentUserInfo() {
+  return function (dispatch) {
+    apiClient.get('me', {
+      onSuccess: ({ data }) => {
+        dispatch({ type: "FETCH_CURRENT_USER_INFO_FULFILLED", payload: data });
+      },
+      onError: (error) => {
+        dispatch({ type: "FETCH_CURRENT_USER_INFO_REJECTED", payload: error });
+      }
+    })
+  };
+}
 
 export function fetchUserContacts() {
   return function (dispatch) {
@@ -9,6 +22,20 @@ export function fetchUserContacts() {
       },
       onError: (error) => {
         dispatch({ type: "FETCH_USER_CONTACTS_REJECTED", payload: error });
+      }
+    })
+  };
+}
+
+export function fetchBuckets() {
+  return function (dispatch) {
+    apiClient.get('buckets', {
+      onSuccess: ({ data }) => {
+        data = data.sort((a, b) => a.id > b.id);
+        dispatch({ type: "FETCH_BUCKETS_FULFILLED", payload: data });
+      },
+      onError: (error) => {
+        dispatch({ type: "FETCH_BUCKETS_REJECTED", payload: error });
       }
     })
   };
@@ -79,12 +106,8 @@ export function addContactToBuckets(obj) {
           id,
         },
         onSuccess: ({ data }) => {
-          console.log('add contact to bucket', data);
-
-          // dispatch({ type: "UPDATE_CONTACT_FULFILLED", payload: data });
-        },
-        onError: (error) => {
-          // dispatch({ type: "UPDATE_CONTACT_REJECTED", payload: error });
+          dispatch(fetchUserContacts())
+          dispatch(fetchBuckets())
         }
       })
     });
@@ -99,13 +122,8 @@ export function deleteContactFromBuckets(obj) {
           id,
         },
         onSuccess: ({ data }) => {
-          console.log('deleted item, data', data);
-        
-
-          // dispatch({ type: "UPDATE_CONTACT_FULFILLED", payload: data });
-        },
-        onError: (error) => {
-          // dispatch({ type: "UPDATE_CONTACT_REJECTED", payload: error });
+          dispatch(fetchUserContacts());
+          dispatch(fetchBuckets());
         }
       })
     });
@@ -137,4 +155,43 @@ export function areTwoArrSame(arr1, arr2) {
     }
     return counter === 0;
   }
+}
+
+export function fetchBucketInfo(id) {
+  return function (dispatch) {
+    apiClient.get(`buckets/${id}`)
+  };
+}
+
+export function addContactsToBucket(obj) {
+  return function (dispatch) {
+    obj.contactsArr.forEach(id => {
+      apiClient.post(`contacts/${id}/buckets`, {
+        data: {
+          id: obj.bucketId,
+        },
+        onSuccess: ({ data }) => {
+          dispatch(fetchUserContacts())
+          dispatch(fetchBuckets())
+        }
+      })
+    });
+  };
+}
+
+export function deleteContactsFromBucket(obj) {
+  return function (dispatch) {
+    obj.contactsArr.forEach(id => {
+      apiClient.delete(`contacts/${id}/buckets`, {
+        data: {
+          id: obj.bucketId,
+        }
+        ,
+        onSuccess: ({ data }) => {
+          dispatch(fetchUserContacts())
+          dispatch(fetchBuckets())
+        }
+      })
+    });
+  };
 }

@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 
 import {
   createContact
-} from "../../actions/contactsActions";
+} from "../../actions/contactuallyAppActions";
 
 
 class AddContact extends Component {

@@ -71,9 +71,8 @@ export function updateContact(obj) {
   };
 }
 
-export function addContactToBucket(obj) {
+export function addContactToBuckets(obj) {
   return function (dispatch) {
-
     obj.bucketsArr.forEach(id => {
       apiClient.post(`contacts/${obj.contactId}/buckets`, {
         data: {
@@ -89,22 +88,27 @@ export function addContactToBucket(obj) {
         }
       })
     });
+  };
+}
 
+export function deleteContactFromBuckets(obj) {
+  return function (dispatch) {
+    obj.bucketsArr.forEach(id => {
+      apiClient.delete(`contacts/${obj.contactId}/buckets`, {
+        data: {
+          id,
+        },
+        onSuccess: ({ data }) => {
+          console.log('deleted item, data', data);
+        
 
-    // apiClient.put(`contacts/${obj.id}`, {
-    //   data: {
-    //     id: obj.id.split('_')[1],
-    //     firstName: obj.firstName,
-    //     lastName: obj.lastName,
-    //     email: obj.email,
-    //   },
-    //   onSuccess: ({ data }) => {
-    //     dispatch({ type: "UPDATE_CONTACT_FULFILLED", payload: data });
-    //   },
-    //   onError: (error) => {
-    //     dispatch({ type: "UPDATE_CONTACT_REJECTED", payload: error });
-    //   }
-    // })
+          // dispatch({ type: "UPDATE_CONTACT_FULFILLED", payload: data });
+        },
+        onError: (error) => {
+          // dispatch({ type: "UPDATE_CONTACT_REJECTED", payload: error });
+        }
+      })
+    });
   };
 }
 

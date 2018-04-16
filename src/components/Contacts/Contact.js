@@ -6,7 +6,8 @@ import { connect } from "react-redux";
 import {
 	deleteContact,
 	updateContact,
-	addContactToBucket
+	addContactToBuckets,
+	deleteContactFromBuckets
 } from "../../actions/contactsActions";
 import Select from 'react-select';
 
@@ -19,8 +20,22 @@ class Contact extends Component {
 			lastName: this.props.item.lastName,
 			email: this.props.item.email,
 			selectArr: null,
-
 		};
+	}
+
+	componentDidMount() {
+		this.addContactBucketsToSelectArr();
+	}
+
+	addContactBucketsToSelectArr = () => {
+		let str = "";
+		this.props.item.extraData.buckets.forEach(e => {
+			str += `${e.id},`;
+		});
+		str = str.substr(0, str.length - 1);
+		this.setState({
+			selectArr: str,
+		})
 	}
 
 	shouldComponentUpdate(newProps, newState) {
@@ -86,29 +101,42 @@ class Contact extends Component {
 					/>
 				</div>
 				<button className="bttn search-form-bttn">Search</button>
-			
+
 			</form>
 		)
 	}
 
 	handleSelectChange = (selectArr) => {
-		// debugger
 		this.setState({ selectArr });
+			let newBucketArr = selectArr.split(',');
+			let oldBucketArr = this.props.item.extraData.buckets;
+			let newBucketMap = {}, itemsToDelete = [], itemsToAdd = [];
+			newBucketArr.forEach(e => newBucketMap[e] = true);
+			oldBucketArr.forEach(e => {
+				if (newBucketMap[e.id] !== undefined) {
+					delete newBucketMap[e.id]
+				} else {
+					itemsToDelete.push(e.id)
+				}
+			})
+			for (let key in newBucketMap) {
+				itemsToAdd.push(key);
+			}
+			if (itemsToAdd.length > 0) {
+				this.props.dispatch(addContactToBuckets({ contactId: this.props.item.id, bucketsArr: itemsToAdd }));
+			}
+			if (itemsToDelete.length > 0) {
+				this.props.dispatch(deleteContactFromBuckets({ contactId: this.props.item.id, bucketsArr: itemsToDelete }));
+			}
 	}
 
-	handleSelectOnClose = () => {
-		if (this.state.selectArr) {
-			let bucketsArr = this.state.selectArr.split(',');
-			// console.log(' this.state.selectArr',  bucketsArr);
-			this.props.dispatch(addContactToBucket({contactId: this.props.item.id, bucketsArr}));
-		}
-	}
+
 
 	selectOptions = () => {
 		let arr = [];
 		if (this.props.contactuallyAppStore.buckets.data !== null) {
-			this.props.contactuallyAppStore.buckets.data.forEach(e => {		
-				arr.push({"label": e.name, "value": e.id})
+			this.props.contactuallyAppStore.buckets.data.forEach(e => {
+				arr.push({ "label": e.name, "value": e.id })
 			});
 		}
 		return arr;
@@ -116,7 +144,7 @@ class Contact extends Component {
 
 	renderContact = () => {
 		return (
-			
+
 			<li className="section ">
 				<p >{this.props.item.id}</p>
 				<p >{this.props.item.firstName}</p>
@@ -125,11 +153,10 @@ class Contact extends Component {
 				<button onClick={() => this.setState({ isBeingEdited: true })}>Edit</button>
 				<button onClick={() => this.props.dispatch(deleteContact(this.props.item.id))}>Delete</button>
 				<Select
-				className="select-bucket"
+					className="select-bucket"
 					closeOnSelect={false}
 					// disabled={disabled}
 					multi
-					onClose={this.handleSelectOnClose}
 					onChange={this.handleSelectChange}
 					options={this.selectOptions()}
 					placeholder="Select your favourite(s)"

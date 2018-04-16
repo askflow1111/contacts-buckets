@@ -408,6 +408,9 @@ body {
   line-height: 71px;
   font-size: 1.8em;
 }
+.buckets-container li {
+  cursor: pointer;
+}
 @keyframes Select-animation-spin {
   to {
     transform: rotate(1turn);

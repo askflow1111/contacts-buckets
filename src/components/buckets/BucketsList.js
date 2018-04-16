@@ -28,11 +28,9 @@ class BucketsList extends Component {
 
 	render() {
 		return (
-			<div>
-				<ul>
-					{this.renderBucketsList()}
-				</ul>
-			</div>
+			<ul className="buckets-container">
+				{this.renderBucketsList()}
+			</ul>
 		)
 	}
 }

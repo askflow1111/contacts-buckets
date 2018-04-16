@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-	withRouter, Route, Switch, browserHistory, Redirect, BrowserRouter as Router,
+	withRouter, Route, Switch, browserHistory, Redirect, BrowserRouter as Router, Link
 } from "react-router-dom";
 import { connect } from "react-redux";
 import Contact from "./Contact";
@@ -36,6 +36,8 @@ class ContactsList extends Component {
 	render() {
 		return (
 			<div>
+				<Link to="/">Home</Link>
+				<Link to="/contacts/add">Add Contact</Link>
 				<ul className="contact-lists-container">
 					{this.renderContactsList()}
 				</ul>

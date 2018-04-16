@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-	withRouter, Route, Switch, browserHistory, Redirect, BrowserRouter as Router,
+	withRouter, Route, Switch, browserHistory, Redirect, BrowserRouter as Router, Link
 } from "react-router-dom";
 import { connect } from "react-redux";
 import Bucket from "./Bucket";
@@ -29,6 +29,7 @@ class BucketsList extends Component {
 	render() {
 		return (
 			<ul className="buckets-container">
+				<Link to="/">Home</Link>
 				{this.renderBucketsList()}
 			</ul>
 		)

@@ -73,7 +73,7 @@ class Contact extends Component {
 				}}
 			>
 				<div >
-					<h3 className="heading"><span> Update</span></h3>
+					<h3 className="heading"><span>Update Contact</span></h3>
 					<input
 						type="text"
 						value={this.state.firstName}
@@ -100,7 +100,7 @@ class Contact extends Component {
 						onChange={this.handleOnChangeValue}
 					/>
 				</div>
-				<button className="bttn search-form-bttn">Search</button>
+				<button className="bttn search-form-bttn">Update</button>
 
 			</form>
 		)

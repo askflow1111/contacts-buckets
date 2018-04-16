@@ -28,7 +28,9 @@ class Bucket extends Component {
 	}
 
 	render() {
-		this.renderBucket();
+		return (	
+			 this.renderBucket()
+		)
 	}
 }
 

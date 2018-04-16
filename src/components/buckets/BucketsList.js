@@ -18,7 +18,7 @@ class BucketsList extends Component {
 		if (this.props.contactuallyAppStore.buckets.data !== null) {
 			return this.props.contactuallyAppStore.buckets.data.map((item) => {
 				return (
-					<Bucket item={item} />
+					<Bucket item={item} key={item.id} />
 				)
 			})
 		} else {
@@ -28,10 +28,15 @@ class BucketsList extends Component {
 
 	render() {
 		return (
-			<ul className="buckets-container">
-				<Link to="/">Home</Link>
-				{this.renderBucketsList()}
-			</ul>
+			<div>
+				<nav>
+					<Link to="/">Home</Link>
+				</nav>
+				<h1>Buckets</h1>
+				<ul className="buckets-container">
+					{this.renderBucketsList()}
+				</ul>
+			</div>
 		)
 	}
 }

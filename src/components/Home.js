@@ -5,16 +5,18 @@ import {
 import { connect } from "react-redux";
 
 class Home extends Component {
+	shouldComponentUpdate() {
+		return false;
+	}
 
 	render() {
 		return (
-			<div>
+			<div className="home-container">
 				<Link to="/contacts/show">Contacts</Link>
 				<Link to="/buckets">Buckets</Link>
 			</div>
 		)
 	}
-
 }
 
 function mapStateToProps({ contactuallyAppStore }) {

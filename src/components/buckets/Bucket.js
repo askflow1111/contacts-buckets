@@ -19,17 +19,16 @@ class Bucket extends Component {
 				key={this.props.item.id}
 				onClick={() => this.props.history.push(`/buckets/${this.props.item.id}`)}
 			>
-				<p >createdAt:{this.props.item.createdAt}</p>
 				<p >Name:{this.props.item.name}</p>
-				<p >contact:{this.props.item.extraData.contactCount}  </p>
-				<p >days: {this.props.item.reminderInterval} </p>
+				<p >Contacts Count:{this.props.item.extraData.contactCount}  </p>
+				<p >Days: {this.props.item.reminderInterval} </p>
 			</li>
 		)
 	}
 
 	render() {
-		return (	
-			 this.renderBucket()
+		return (
+			this.renderBucket()
 		)
 	}
 }

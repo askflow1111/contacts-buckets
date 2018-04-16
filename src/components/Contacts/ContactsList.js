@@ -24,10 +24,9 @@ class ContactsList extends Component {
 		if (this.props.contactuallyAppStore.contacts.data !== null) {
 			return this.props.contactuallyAppStore.contacts.data.map((item) => {
 				return (
-					<Contact item={item} />
+					<Contact item={item} key={item.id} />
 				)
 			})
-			// add the case when contacts are  empty
 		} else {
 			return <h1>loading</h1>
 		}
@@ -36,8 +35,11 @@ class ContactsList extends Component {
 	render() {
 		return (
 			<div>
-				<Link to="/">Home</Link>
-				<Link to="/contacts/add">Add Contact</Link>
+				<nav>
+					<Link to="/">Home</Link>
+					<Link to="/contacts/add">Add Contact</Link>
+				</nav>
+				<h1>Contacts</h1>
 				<ul className="contact-lists-container">
 					{this.renderContactsList()}
 				</ul>

@@ -37,8 +37,10 @@ class AddContact extends Component {
   render() {
     return (
       <div>
-        <Link to="/">Home</Link>
-        <Link to="/contacts/show">Show Contacts</Link>
+        <nav>
+          <Link to="/">Home</Link>
+          <Link to="/contacts/show">Show Contacts</Link>
+        </nav>
         <form className="form" onSubmit={(e) => {
           e.preventDefault();
           let data = {
@@ -47,7 +49,6 @@ class AddContact extends Component {
             email: e.target.email.value
           }
           this.props.dispatch(createContact(data));
-
         }}>
           <div >
             <h3 className="heading"><span> Add</span></h3>
@@ -56,21 +57,18 @@ class AddContact extends Component {
               name="firstName"
               required
               placeholder="First Nmae!"
-              className="search-box-input"
             />
             <input
               type="text"
               name="lastName"
               required
               placeholder="Last Nmae!"
-              className="search-box-input"
             />
             <input
               type="email"
               name="email"
               required
               placeholder="email"
-              className="search-box-input"
             />
           </div>
           <button className="bttn search-form-bttn">Add</button>

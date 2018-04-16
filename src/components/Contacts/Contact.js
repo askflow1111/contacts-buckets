@@ -80,7 +80,6 @@ class Contact extends Component {
 						name="firstName"
 						required
 						placeholder="First Nmae!"
-						className="search-box-input"
 						onChange={this.handleOnChangeValue}
 					/>
 					<input
@@ -101,7 +100,6 @@ class Contact extends Component {
 					/>
 				</div>
 				<button className="bttn search-form-bttn">Update</button>
-
 			</form>
 		)
 	}
@@ -130,8 +128,6 @@ class Contact extends Component {
 		}
 	}
 
-
-
 	selectOptions = () => {
 		let arr = [];
 		if (this.props.contactuallyAppStore.buckets.data !== null) {
@@ -144,11 +140,10 @@ class Contact extends Component {
 
 	renderContact = () => {
 		return (
-
 			<li className="section " key={this.props.item.id}>
-				<p >{this.props.item.id}</p>
-				<p >{this.props.item.firstName}</p>
-				<p >{this.props.item.lastName} </p>
+				<p >ID: {this.props.item.id}</p>
+				<p >First Name: {this.props.item.firstName}</p>
+				<p >Last Name: {this.props.item.lastName} </p>
 				<p >{this.props.item.email} </p>
 				<button onClick={() => this.setState({ isBeingEdited: true })}>Edit</button>
 				<button onClick={() => this.props.dispatch(deleteContact(this.props.item.id))}>Delete</button>
@@ -159,7 +154,7 @@ class Contact extends Component {
 					multi
 					onChange={this.handleSelectChange}
 					options={this.selectOptions()}
-					placeholder="Select your favourite(s)"
+					placeholder="Select Buckets To Add To This Contact"
 					removeSelected={false}
 					// rtl={this.state.rtl}
 					simpleValue

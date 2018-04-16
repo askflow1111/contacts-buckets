@@ -1,5 +1,9 @@
-body {
+html,
+body,
+.App,
+#root {
   margin: 0;
+  height: 100%;
   padding: 0;
 }
 .Select {
@@ -408,8 +412,56 @@ body {
   line-height: 71px;
   font-size: 1.8em;
 }
-.buckets-container li {
+.home-container,
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.home-container a,
+nav a {
+  width: 50%;
+  background: #1250ff;
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  height: 100%;
+  line-height: 93vh;
+  font-size: 60px;
+  border-right: 1px solid black;
+  box-sizing: border-box;
+  flex-grow: 1;
+}
+.home-container a:hover,
+nav a:hover {
+  background-color: blue;
+  color: black;
+}
+.home-container a:last-child,
+nav a:last-child {
+  border-right: 0;
+}
+nav a {
+  line-height: normal;
+}
+.buckets-container ul,
+.contact-lists-container ul,
+.buckets-container li,
+.contact-lists-container li {
+  list-style-type: none;
+}
+.buckets-container li,
+.contact-lists-container li {
   cursor: pointer;
+  padding: 23px;
+  border: 1px solid black;
+}
+.buckets-container li:hover,
+.contact-lists-container li:hover {
+  -webkit-box-shadow: 0px 0px 21px -1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 21px -1px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 21px -1px rgba(0, 0, 0, 0.75);
 }
 @keyframes Select-animation-spin {
   to {

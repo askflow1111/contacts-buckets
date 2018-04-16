@@ -1,5 +1,9 @@
-body {
+html,
+body,
+.App,
+#root {
     margin: 0;
+    height: 100%;
     padding: 0;
 }
 
@@ -469,7 +473,7 @@ body {
 .bucket-details-container {
     .Select-multi-value-wrapper {
         display: flex;
-        flex-direction: column; // align-items: center;
+        flex-direction: column;
         .Select-value {
             height: 80px;
             display: -ms-flexbox;
@@ -480,9 +484,52 @@ body {
     }
 }
 
-.buckets-container {
+.home-container,
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    a {
+        width: 50%;
+        background: #1250ff;
+        text-decoration: none;
+        color: white;
+        text-align: center;
+        height: 100%;
+        line-height: 93vh;
+        font-size: 60px;
+        border-right: 1px solid black;
+        box-sizing: border-box;
+        flex-grow: 1;
+        &:hover {
+            background-color: blue;
+            color: black;
+        }
+        &:last-child {
+            border-right: 0;
+        }
+    }
+}
+
+nav a {
+    line-height: normal;
+}
+
+.buckets-container, .contact-lists-container {
+    ul,
+    li {
+        list-style-type: none;
+    }
     li {
         cursor: pointer;
+        padding: 23px;
+        border: 1px solid black;
+        &:hover {
+            -webkit-box-shadow: 0px 0px 21px -1px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: 0px 0px 21px -1px rgba(0, 0, 0, 0.75);
+            box-shadow: 0px 0px 21px -1px rgba(0, 0, 0, 0.75);
+        }
     }
 }
 
@@ -497,4 +544,3 @@ body {
         -webkit-transform: rotate(1turn);
     }
 }
-

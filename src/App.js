@@ -3,8 +3,6 @@ import {
   withRouter, Route, Switch, browserHistory, Redirect, BrowserRouter as Router,
 } from "react-router-dom";
 import { connect } from "react-redux";
-// import logo from './logo.svg'
-// import './App.css'
 import Home from "./components/Home";
 import ContactsList from "./components/contacts/ContactsList";
 import AddContact from "./components/contacts/AddContact";
@@ -24,8 +22,11 @@ class App extends Component {
     this.props.dispatch(fetchBuckets());
   }
 
+  shouldComponentUpdate() {
+    return false;
+  }
+
   render() {
-    console.log('this.props', this.props);
     return (
       <Router >
         <Switch>
